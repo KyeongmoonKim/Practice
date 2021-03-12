@@ -14,6 +14,7 @@ public class AppCtx {
 	public ReentrantLock ReadLock() {
 		return new ReentrantLock();
 	}
+	@Bean
 	public ReentrantLock WriteLock() {
 		return new ReentrantLock();
 	}
