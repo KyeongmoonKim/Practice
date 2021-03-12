@@ -1,12 +1,9 @@
-package chap03.spring;
-import java.util.concurrent.locks.ReentrantLock;
-import org.springframework.beans.factory.annotation.*;
-
+package chap04.spring;
 
 public class loginServ implements IService{
-	@Autowired
 	private MemberDAO Dao;
-	public loginServ() {
+	public loginServ(MemberDAO dao) {
+		this.Dao = dao;
 	}
 	
 	public void run(Object[] in) {

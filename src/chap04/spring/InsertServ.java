@@ -1,10 +1,9 @@
-package chap03.spring;
-import java.util.concurrent.locks.ReentrantLock;
-import org.springframework.beans.factory.annotation.*;
+package chap04.spring;
 
 public class InsertServ implements IService{
 	private MemberDAO Dao;
-	public InsertServ() {
+	public InsertServ(MemberDAO dao) {
+		this.Dao = dao;
 	}
 	@Override
 	public void run(Object[] in) {
