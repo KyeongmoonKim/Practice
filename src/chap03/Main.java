@@ -3,11 +3,12 @@ import chap03.spring.*;
 import chap03.config.*;
 import org.springframework.context.*;
 import org.springframework.context.annotation.*;
+import org.springframework.context.support.*;
 import java.io.*;
 import java.util.*;
 
 public class Main {
-	private static ApplicationContext ctx = null;
+	private static AbstractApplicationContext ctx = null;
 	public static void main(String[] args) throws IOException, InterruptedException {
 		// TODO Auto-generated method stub
 		ctx = new AnnotationConfigApplicationContext(AppCtx.class);
@@ -56,6 +57,7 @@ public class Main {
 		temp[3].join();
 		temp[4].join();
 		temp[5].join();
+		ctx.close();
 	}
 
 }
