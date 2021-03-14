@@ -7,9 +7,9 @@ public class proxySum implements Isum {
 	}
 	@Override
 	public Object sum(Object[] lists) {
-		long start = System.currentTimeMillis();
+		long start = System.nanoTime();
 		String ret = (String)this.delegate.sum(lists);
-		long end = System.currentTimeMillis();
+		long end = System.nanoTime();
 		System.out.println(end-start);
 		return ret;
 	}
