@@ -72,5 +72,8 @@
 	<classpathentry kind="lib" path="lib/aspectj-1.9.6.jar"/>
 	<classpathentry kind="lib" path="lib/aspectj-1.9.6-src.jar"/>
 	<classpathentry kind="lib" path="lib/aspectjweaver-1.9.6.jar"/>
+	<classpathentry kind="lib" path="lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="lib/tomcat-dbcp-7.0.30.jar"/>
+	<classpathentry kind="lib" path="lib/tomcat-jdbc-7.0.30.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
