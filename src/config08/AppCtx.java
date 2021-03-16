@@ -5,10 +5,14 @@ import chap08.spring.*;
  
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.*;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.*;
+import org.springframework.transaction.annotation.*;
 //import javax.naming.*;
 //import javax.sql.*;
 
 @Configuration
+@EnableTransactionManagement
 public class AppCtx {
 	
 	@Bean(destroyMethod = "close") 
@@ -24,6 +28,12 @@ public class AppCtx {
 		return ds;
 	}
 	
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		DataSourceTransactionManager tm = new DataSourceTransactionManager();
+		tm.setDataSource(dataSource());
+		return tm;
+	}
 	@Bean
 	public UserDao userDao(){
 		return new UserDao(dataSource());

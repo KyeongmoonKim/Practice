@@ -3,7 +3,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.*;
 import org.springframework.jdbc.core.*;
-import org.springframework.beans.factory.annotation.*;
+import org.springframework.transaction.annotation.*;
 
 public class UserDao {
 	
@@ -12,7 +12,7 @@ public class UserDao {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
-	public boolean login(String id, String pwd) {
+	public void login(String id, String pwd) {
 		List<UserVO> results = jdbcTemplate.query(
 				"SELECT * FROM MYUSER WHERE USERID = ? ",
 				new RowMapper<UserVO>() {
@@ -27,10 +27,9 @@ public class UserDao {
 				}, id);
 		//List<T> query(String sql, Object[] args, RowMapper<T> rowMapper) 같은 타입일경우에거
 		//List<T> query(String sql, RowMapper<T> rowMapper, Object... args)
-		if(results.size()!=1) return false; //해당되는 id가 없거나 여러개임.
+		if(results.size()!=1) throw new LoginFailException("no such ID"); //해당되는 id가 없거나 여러개임.
 		UserVO temp = results.get(0); //하나니까 가져옴.
-		if(temp.getPwd().compareTo(pwd)==0) return true;
-		else return false;
+		if(temp.getPwd().compareTo(pwd)!=0) throw new LoginFailException("pwd is wrong!");
 	}
 	public boolean isDup(String id) {
 		List<UserVO> results = jdbcTemplate.query(
@@ -60,5 +59,23 @@ public class UserDao {
 				return pstmt;
 			}
 		});
+	}
+	public void changePwd(String id, String pwd) {
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pstmt = con.prepareStatement("UPDATE MYUSER SET USERPWD = ? WHERE USERID = ?");
+				pstmt.setString(1, pwd);
+				pstmt.setString(2, id);
+				return pstmt;
+			}
+		});
+	}
+	@Transactional
+	public void changePwds(String[] ids, String[] pwds, String[] pwdNews) {
+		for(int i = 0; i < ids.length; i++) {
+			login(ids[i], pwds[i]); //login test;
+			changePwd(ids[i], pwdNews[i]);
+		}
 	}
 }

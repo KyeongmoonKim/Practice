@@ -11,13 +11,19 @@ public class Main {
 		// TODO Auto-generated method stub
 		AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(AppCtx.class);
 		UserDao dao = ctx.getBean("userDao", UserDao.class);
-		if(dao.login("kkm8031", "rudans93")) System.out.println("login success!");
-		else System.out.println("failed");
-		UserVO uvo = new UserVO();
-		uvo.setId("test1");
-		uvo.setPwd("test1");
-		uvo.setName("test1");
-		dao.insertUser(uvo);
+		/*UserVO uvo = new UserVO();
+		uvo.setId("test2");
+		uvo.setPwd("test2");
+		uvo.setName("test2");
+		dao.insertUser(uvo); */ //id insertion
+		String[] ids = {"test1", "test2"};
+		String[] pwds = {"test1", "test2"};
+		String[] pwdNews = {"0", "0"};
+		try {
+			dao.changePwds(ids, pwds, pwdNews);
+		} catch(Exception e){
+			System.out.println("error!");
+		}
 		ctx.close();
 	}
 
