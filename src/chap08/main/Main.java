@@ -11,6 +11,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(AppCtx.class);
 		UserDao dao = ctx.getBean("userDao", UserDao.class);
+		if(dao.login("kkm8031", "rudans93")) System.out.println("login success!");
+		else System.out.println("failed");
 		ctx.close();
 	}
 

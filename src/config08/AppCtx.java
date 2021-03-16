@@ -19,7 +19,8 @@ public class AppCtx {
 		ds.setUsername("scott");
 		ds.setPassword("tiger");
 		ds.setInitialSize(2);
-		ds.setMaxActive(10);
+		ds.setMaxActive(50);
+		ds.setMaxIdle(50);
 		return ds;
 	}
 	
