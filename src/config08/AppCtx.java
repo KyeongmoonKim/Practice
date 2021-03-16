@@ -12,14 +12,14 @@ import org.springframework.context.annotation.*;
 public class AppCtx {
 	
 	@Bean(destroyMethod = "close") 
-	public DataSource dataSource(){
+	public DataSource dataSource(){ //DataSource Bean
 		DataSource ds = new DataSource();
-		ds.setDriverClassName("oracle.jdbc.OracleDriver");
-		ds.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
+		ds.setDriverClassName("oracle.jdbc.OracleDriver"); //context.xml의 내용
+		ds.setUrl("jdbc:oracle:thin:@localhost:1521:XE"); //context.xml의내용
 		ds.setUsername("scott");
 		ds.setPassword("tiger");
 		ds.setInitialSize(2);
-		ds.setMaxActive(50);
+		ds.setMaxActive(50); //max active 와 maxidle은 같은숫자로
 		ds.setMaxIdle(50);
 		return ds;
 	}
