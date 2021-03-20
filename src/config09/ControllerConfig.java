@@ -8,4 +8,8 @@ public class ControllerConfig {
 	public HelloController helloController() {
 		return new HelloController();
 	}
+	@Bean
+	public ByeController byeController() {
+		return new ByeController();
+	}
 }
